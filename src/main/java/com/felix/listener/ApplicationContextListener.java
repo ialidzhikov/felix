@@ -15,7 +15,7 @@ public class ApplicationContextListener implements ServletContextListener {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
 		// Empty body

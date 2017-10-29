@@ -14,14 +14,14 @@ import com.felix.entity.Topic;
 public class TopicResource {
 
 	private TopicDao dao;
-	
+
 	public TopicResource() {
 		this.dao = new TopicDao();
 	}
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Topic> getAll() {
-		return dao.findAll(); 
+		return dao.findAll();
 	}
 }

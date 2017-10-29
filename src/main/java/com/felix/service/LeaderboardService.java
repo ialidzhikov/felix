@@ -17,22 +17,22 @@ public class LeaderboardService {
 	public LeaderboardService() {
 		this.studentDao = new StudentDao();
 	}
-	
+
 	public List<LeaderboardRecord> get() {
 		List<Student> students = studentDao.findAll();
 
 		List<LeaderboardRecord> records = mapToLeaderboardRecord(students);
 		Collections.sort(records, Comparator.reverseOrder());
 		setRanks(records);
-		
+
 		return records;
 	}
-	
+
 	private void setRanks(List<LeaderboardRecord> records) {
 		if (records.isEmpty()) {
 			return;
 		}
-		
+
 		int rank = 1;
 		int offset = 0;
 		records.get(0).setRank(rank);
@@ -44,7 +44,7 @@ public class LeaderboardService {
 				rank++;
 				offset = 0;
 			}
-			
+
 			records.get(i).setRank(rank);
 		}
 	}
@@ -56,16 +56,16 @@ public class LeaderboardService {
 			leaderboard.setFirstName(student.getFirstName());
 			leaderboard.setLastName(student.getLastName());
 			leaderboard.setRankings(student.getRankings());
-			
+
 			int total = 0;
 			for (Ranking ranking : student.getRankings()) {
 				total += ranking.getPoints();
 			}
 			leaderboard.setTotal(total);
 
-			records.add(leaderboard);	
+			records.add(leaderboard);
 		}
-		
+
 		return records;
 	}
 }

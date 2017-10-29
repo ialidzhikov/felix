@@ -15,22 +15,22 @@ public class Ranking {
 
 	@Id
 	private Long id;
-	
+
 	@Transient
 	private Long topicId;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "TOPIC_ID", referencedColumnName = "ID")
 	private Topic topic;
-	
+
 	@Transient
 	private Long studentId;
-	
+
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "STUDENT_ID", referencedColumnName = "ID")
 	private Student student;
-	
+
 	private int points;
 
 	public Long getId() {
@@ -48,7 +48,7 @@ public class Ranking {
 	public void setTopicId(Long topicId) {
 		this.topicId = topicId;
 	}
-	
+
 	public Topic getTopic() {
 		return topic;
 	}
@@ -64,7 +64,7 @@ public class Ranking {
 	public void setStudentId(Long studentId) {
 		this.studentId = studentId;
 	}
-	
+
 	public Student getStudent() {
 		return student;
 	}

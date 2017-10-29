@@ -3,7 +3,7 @@ package com.felix.dao;
 import com.felix.entity.Student;
 
 public class StudentDao extends AbstractDao<Student> {
-	
+
 	public Class<Student> getEntityType() {
 		return Student.class;
 	}
@@ -12,7 +12,7 @@ public class StudentDao extends AbstractDao<Student> {
 	public Object getPrimaryKey(Student entity) {
 		return entity.getId();
 	}
-	
+
 	@Override
 	public void update(Student entity) {
 		Student student = find(entity.getId());

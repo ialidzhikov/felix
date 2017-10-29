@@ -14,11 +14,11 @@ import com.felix.service.LeaderboardService;
 public class LeaderboardResource {
 
 	private LeaderboardService service;
-	
+
 	public LeaderboardResource() {
 		service = new LeaderboardService();
 	}
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<LeaderboardRecord> get() {

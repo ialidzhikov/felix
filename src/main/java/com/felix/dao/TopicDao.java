@@ -8,7 +8,7 @@ public class TopicDao extends AbstractDao<Topic> {
 	public Class<Topic> getEntityType() {
 		return Topic.class;
 	}
-	
+
 	@Override
 	public Object getPrimaryKey(Topic entity) {
 		return entity.getId();
