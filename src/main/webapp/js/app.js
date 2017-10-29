@@ -7,12 +7,22 @@ var app = app || {};
 		var containerSelector = '#main-container';
 		
 		this.get('#/', function () {
-			console.log('inside')
 		});
 		
 		this.get('#/leaderboard', function () {
-			console.log('inside')
-			app.Renderer.render(containerSelector, 'templates/leaderboard.html')
+			app.TopicModel.getAll()
+			   .done(function (topics) {
+				   app.LeaderboardModel.getAll()
+					   .done(function (leaderboards) {
+						   var data = { 
+								   topics: topics,
+								   leaderboards: leaderboards,
+						   };
+						   
+						   app.Renderer.render(containerSelector, 'templates/leaderboard.html', data)
+					   });
+			   });
+			
 		});
 	});
 	

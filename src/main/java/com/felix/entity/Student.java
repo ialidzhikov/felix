@@ -1,27 +1,39 @@
 package com.felix.entity;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.List;
 
-@Table
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@Entity
+@NamedQueries(@NamedQuery(name = "Student.findAll", query = "SELECT s FROM Student s"))
+@JsonPropertyOrder({ "id", "firstName", "lastName", "username", "email" })
 public class Student {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
-	
+
 	@Column(length = 128, nullable = false)
 	private String firstName;
-	
+
 	@Column(length = 128, nullable = false)
 	private String lastName;
-	
+
 	private String username;
-	
+
 	private String email;
+
+	@OneToMany(mappedBy = "student")
+	@OrderBy("id ASC")
+	private List<Ranking> rankings;
 
 	public Long getId() {
 		return id;
@@ -61,5 +73,13 @@ public class Student {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public List<Ranking> getRankings() {
+		return rankings;
+	}
+
+	public void setRankings(List<Ranking> rankings) {
+		this.rankings = rankings;
 	}
 }

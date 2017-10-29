@@ -1,19 +1,22 @@
 package com.felix.entity;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
-@Table
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@Entity
+@NamedQueries(@NamedQuery(name = "Topic.findAll", query = "SELECT t FROM Topic t ORDER BY t.id"))
+@JsonPropertyOrder({ "id", "name", "maxPoints" })
 public class Topic {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
-	
+
 	private String name;
-	
+
 	private int maxPoints;
 
 	public Long getId() {
