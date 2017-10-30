@@ -7,6 +7,7 @@ var app = app || {};
     var containerSelector = '#main-container';
 
     this.get('#/', function () {
+      app.Renderer.render(containerSelector, 'templates/home.html')
     });
 
     this.get('#/leaderboard', function () {

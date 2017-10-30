@@ -1,7 +1,7 @@
 package com.felix.listener;
 
+import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.MappingIterator;
@@ -29,14 +29,14 @@ public class DatabaseInitializer {
 	}
 
 	public void initialize() throws IOException {
-		List<Topic> topics = readData("/data/topics.csv", Topic.class);
-		List<Student> students = readData("/data/students.csv", Student.class);
+		List<Topic> topics = readData("../bin/felix/topics.csv", Topic.class);
+		List<Student> students = readData("../bin/felix/students.csv", Student.class);
 
 		persistData(topicDao, topics);
 		persistData(studentDao, students);
 
-		List<Ranking> rankings = readRankings("/data/rankings.csv");
-		persistData(rankingDao, rankings);
+		List<Ranking> rankings = readRankings("../bin/felix/rankings.csv");
+		persistData(rankingDao, rankings); 
 	}
 
 	private <T> void persistData(AbstractDao<T> dao, List<T> entities) {
@@ -61,7 +61,7 @@ public class DatabaseInitializer {
 	private <T> List<T> readData(String path, Class<T> clazz) throws IOException {
 		CsvMapper mapper = new CsvMapper();
 		CsvSchema schema = mapper.schemaFor(clazz).withHeader().withComments();
-		URL csvFile = getClass().getResource(path);
+		File csvFile = new File(path);
 
 		ObjectReader reader = mapper.readerFor(clazz).with(schema);
 		MappingIterator<T> iterator = reader.readValues(csvFile);

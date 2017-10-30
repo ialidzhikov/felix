@@ -14,18 +14,21 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @Entity
 @NamedQueries(@NamedQuery(name = "Student.findAll", query = "SELECT s FROM Student s"))
-@JsonPropertyOrder({ "id", "firstName", "lastName", "username", "email" })
+@JsonPropertyOrder({ "id", "firstName", "lastName", "facultyNumber", "username", "email" })
 public class Student {
 
 	@Id
 	private Long id;
 
-	@Column(length = 128, nullable = false)
+	@Column(name = "FIRST_NAME",  length = 128, nullable = false)
 	private String firstName;
 
-	@Column(length = 128, nullable = false)
+	@Column(name = "LAST_NAME", length = 128, nullable = false)
 	private String lastName;
 
+	@Column(name = "FACULTY_NUMBER", length = 20, nullable = false, unique = true)
+	private String facultyNumber;
+	
 	private String username;
 
 	private String email;
@@ -58,6 +61,14 @@ public class Student {
 		this.lastName = lastName;
 	}
 
+	public String getFacultyNumber() {
+		return facultyNumber;
+	}
+
+	public void setFacultyNumber(String facultyNumber) {
+		this.facultyNumber = facultyNumber;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
