@@ -29,13 +29,13 @@ public class DatabaseInitializer {
 	}
 
 	public void initialize() throws IOException {
-		List<Topic> topics = readData("../bin/felix/topics.csv", Topic.class);
-		List<Student> students = readData("../bin/felix/students.csv", Student.class);
+		List<Topic> topics = readData("/felix/topics.csv", Topic.class);
+		List<Student> students = readData("/felix/students.csv", Student.class);
 
 		persistData(topicDao, topics);
 		persistData(studentDao, students);
 
-		List<Ranking> rankings = readRankings("../bin/felix/rankings.csv");
+		List<Ranking> rankings = readRankings("/felix/rankings.csv");
 		persistData(rankingDao, rankings); 
 	}
 
