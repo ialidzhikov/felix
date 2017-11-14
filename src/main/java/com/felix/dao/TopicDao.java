@@ -17,9 +17,9 @@ public class TopicDao extends AbstractDao<Topic> {
 	@Override
 	public void update(Topic entity) {
 		Topic topic = find(entity.getId());
-		entityManager.getTransaction().begin();
+		getEntityManager().getTransaction().begin();
 		topic.setName(entity.getName());
 		topic.setMaxPoints(entity.getMaxPoints());
-		entityManager.getTransaction().commit();
+		getEntityManager().getTransaction().commit();
 	}
 }

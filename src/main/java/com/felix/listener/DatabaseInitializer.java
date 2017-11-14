@@ -2,7 +2,11 @@ package com.felix.listener;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -15,18 +19,20 @@ import com.felix.dao.TopicDao;
 import com.felix.entity.Ranking;
 import com.felix.entity.Student;
 import com.felix.entity.Topic;
+import com.google.inject.Inject;
 
 public class DatabaseInitializer {
 
-	private TopicDao topicDao;
-	private StudentDao studentDao;
-	private RankingDao rankingDao;
+	private static final Logger logger = LoggerFactory.getLogger(DatabaseInitializer.class);
 
-	public DatabaseInitializer() {
-		topicDao = new TopicDao();
-		studentDao = new StudentDao();
-		rankingDao = new RankingDao();
-	}
+	@Inject
+	private TopicDao topicDao;
+
+	@Inject
+	private StudentDao studentDao;
+
+	@Inject
+	private RankingDao rankingDao;
 
 	public void initialize() throws IOException {
 		List<Topic> topics = readData("/felix/topics.csv", Topic.class);
@@ -36,7 +42,9 @@ public class DatabaseInitializer {
 		persistData(studentDao, students);
 
 		List<Ranking> rankings = readRankings("/felix/rankings.csv");
-		persistData(rankingDao, rankings); 
+		persistData(rankingDao, rankings);
+
+		logger.info("Database successfully initialized.");
 	}
 
 	private <T> void persistData(AbstractDao<T> dao, List<T> entities) {
@@ -53,6 +61,8 @@ public class DatabaseInitializer {
 
 			ranking.setTopic(topic);
 			ranking.setStudent(student);
+
+			student.getRankings().add(ranking);
 		}
 
 		return rankings;

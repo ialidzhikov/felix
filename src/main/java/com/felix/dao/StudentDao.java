@@ -16,11 +16,11 @@ public class StudentDao extends AbstractDao<Student> {
 	@Override
 	public void update(Student entity) {
 		Student student = find(entity.getId());
-		entityManager.getTransaction().begin();
+		getEntityManager().getTransaction().begin();
 		student.setFirstName(entity.getFirstName());
 		student.setLastName(entity.getLastName());
 		student.setUsername(entity.getUsername());
 		student.setEmail(entity.getEmail());
-		entityManager.getTransaction().commit();
+		getEntityManager().getTransaction().commit();
 	}
 }

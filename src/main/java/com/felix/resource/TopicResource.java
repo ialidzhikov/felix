@@ -9,15 +9,15 @@ import javax.ws.rs.core.MediaType;
 
 import com.felix.dao.TopicDao;
 import com.felix.entity.Topic;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+@Singleton
 @Path("topics")
 public class TopicResource {
 
+	@Inject
 	private TopicDao dao;
-
-	public TopicResource() {
-		this.dao = new TopicDao();
-	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

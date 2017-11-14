@@ -1,9 +1,12 @@
 package com.felix.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -20,7 +23,7 @@ public class Student {
 	@Id
 	private Long id;
 
-	@Column(name = "FIRST_NAME",  length = 128, nullable = false)
+	@Column(name = "FIRST_NAME", length = 128, nullable = false)
 	private String firstName;
 
 	@Column(name = "LAST_NAME", length = 128, nullable = false)
@@ -28,14 +31,14 @@ public class Student {
 
 	@Column(name = "FACULTY_NUMBER", length = 20, nullable = false, unique = true)
 	private String facultyNumber;
-	
+
 	private String username;
 
 	private String email;
 
-	@OneToMany(mappedBy = "student")
+	@OneToMany(mappedBy = "student", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@OrderBy("id ASC")
-	private List<Ranking> rankings;
+	private List<Ranking> rankings = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -68,7 +71,7 @@ public class Student {
 	public void setFacultyNumber(String facultyNumber) {
 		this.facultyNumber = facultyNumber;
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}

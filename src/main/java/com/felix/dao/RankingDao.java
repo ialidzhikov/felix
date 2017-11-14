@@ -17,10 +17,10 @@ public class RankingDao extends AbstractDao<Ranking> {
 	@Override
 	public void update(Ranking entity) {
 		Ranking ranking = find(getPrimaryKey(entity));
-		entityManager.getTransaction().begin();
+		getEntityManager().getTransaction().begin();
 		ranking.setTopic(entity.getTopic());
 		ranking.setStudent(entity.getStudent());
 		ranking.setPoints(entity.getPoints());
-		entityManager.getTransaction().commit();
+		getEntityManager().getTransaction().commit();
 	}
 }

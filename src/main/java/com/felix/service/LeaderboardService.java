@@ -9,14 +9,12 @@ import com.felix.dao.StudentDao;
 import com.felix.entity.LeaderboardRecord;
 import com.felix.entity.Ranking;
 import com.felix.entity.Student;
+import com.google.inject.Inject;
 
 public class LeaderboardService {
 
+	@Inject
 	private StudentDao studentDao;
-
-	public LeaderboardService() {
-		this.studentDao = new StudentDao();
-	}
 
 	public List<LeaderboardRecord> get() {
 		List<Student> students = studentDao.findAll();

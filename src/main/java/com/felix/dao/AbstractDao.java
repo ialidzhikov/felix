@@ -3,17 +3,21 @@ package com.felix.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import com.google.inject.Singleton;
+import com.google.inject.persist.Transactional;
+
+@Singleton
 public abstract class AbstractDao<T> {
 
-	protected EntityManager entityManager;
+	@Inject
+	private Provider<EntityManager> entityManagerProvider;
 
-	public AbstractDao() {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("felix");
-		entityManager = factory.createEntityManager();
+	protected EntityManager getEntityManager() {
+		return entityManagerProvider.get();
 	}
 
 	public abstract Class<T> getEntityType();
@@ -30,19 +34,18 @@ public abstract class AbstractDao<T> {
 		}
 	}
 
+	@Transactional
 	public void persist(T entity) {
-		entityManager.getTransaction().begin();
-		entityManager.persist(entity);
-		entityManager.getTransaction().commit();
+		getEntityManager().persist(entity);
 	}
 
 	public T find(Object primaryKey) {
-		return entityManager.find(getEntityType(), primaryKey);
+		return getEntityManager().find(getEntityType(), primaryKey);
 	}
 
 	public List<T> findAll() {
 		String namedQuery = getEntityType().getSimpleName() + ".findAll";
-		TypedQuery<T> query = entityManager.createNamedQuery(namedQuery, getEntityType());
+		TypedQuery<T> query = getEntityManager().createNamedQuery(namedQuery, getEntityType());
 		return query.getResultList();
 	}
 

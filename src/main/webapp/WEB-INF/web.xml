@@ -8,8 +8,8 @@
 		<servlet-name>JerseyServlet</servlet-name>
 		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
 		<init-param>
-			<param-name>jersey.config.server.provider.packages</param-name>
-			<param-value>com.felix.resource</param-value>
+			<param-name>javax.ws.rs.Application</param-name>
+			<param-value>com.felix.resource.Felix</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
@@ -18,10 +18,22 @@
 		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
 
+	<filter>
+		<filter-name>GuiceFilter</filter-name>
+		<filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>GuiceFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<listener>
 		<listener-class>com.felix.listener.ApplicationContextListener</listener-class>
 	</listener>
-	
+	<listener>
+		<listener-class>com.felix.listener.DatabaseInitializerListener</listener-class>
+	</listener>
+
 	<resource-ref>
 		<res-ref-name>jdbc/felix</res-ref-name>
 		<res-type>javax.sql.DataSource</res-type>

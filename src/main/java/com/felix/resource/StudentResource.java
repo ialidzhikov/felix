@@ -9,15 +9,15 @@ import javax.ws.rs.core.MediaType;
 
 import com.felix.dao.StudentDao;
 import com.felix.entity.Student;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+@Singleton
 @Path("students")
 public class StudentResource {
 
+	@Inject
 	private StudentDao dao;
-
-	public StudentResource() {
-		this.dao = new StudentDao();
-	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

@@ -9,15 +9,15 @@ import javax.ws.rs.core.MediaType;
 
 import com.felix.entity.LeaderboardRecord;
 import com.felix.service.LeaderboardService;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+@Singleton
 @Path("leaderboard")
 public class LeaderboardResource {
 
+	@Inject
 	private LeaderboardService service;
-
-	public LeaderboardResource() {
-		service = new LeaderboardService();
-	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
